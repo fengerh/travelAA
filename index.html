@@ -11,28 +11,49 @@
             --danger-color: #d9534f;
             --light-bg: #f8f9fa;
             --border-color: #dee2e6;
+            --main-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --header-bg: #34495e; /* 深灰色蓝作为主标题背景 */
+            --header-color: #ecf0f1; /* 主标题文字颜色 */
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, "Microsoft YaHei", "微软雅黑";
             max-width: 1000px;
             margin: 0 auto;
             padding: 15px;
-            background-color: #f5f5f5;
+            background-color: var(--main-bg);
             height: 100vh;
             overflow: auto;
         }
         .card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 15px;
             margin-bottom: 15px;
         }
-        h1, h2, h3 {
+        /* 主标题样式 */
+        h1 {
+            background-color: var(--header-bg);
+            color: var(--header-color);
+            font-size: 1.8em; /* 调整为1.8em */
+            margin: 0 -15px 15px -15px; /* 负边距使其充满卡片 */
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        h2 {
             color: var(--primary-color);
-            font-size: 1.4em;
-            margin: 0;
-            font-weight: 500; /* 统一的字重 */
+            font-size: 1.4em; /* 调整为1.4em */
+            margin: 0 0 15px 0;
+            font-weight: 500;
+        }
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.2em; /* 调整为1.2em */
+            margin: 0 0 10px 0;
+            font-weight: 500;
         }
         /* 新增：用于合并显示标题和账本名称的样式 */
         .main-title {
@@ -45,19 +66,21 @@
             font-weight: inherit; /* 与父元素(h1)保持一致 */
             color: inherit; /* 与父元素(h1)保持一致 */
         }
-        /* 修改：全新的精简提示条样式 */
+        /* 修改：全新的精简提示条样式，并移到页面最顶部 */
         .hint-banner {
             background-color: #d4edda;
             border: 1px solid #c3e6cb;
             color: #155724;
-            padding: 6px 12px;
+            padding: 10px 12px;
             text-align: center;
-            font-size: 0.85em;
-            margin-bottom: 15px;
-            border-radius: 4px;
+            font-size: 0.95em; /* 统一为0.95em */
+            margin: -15px -15px 15px -15px; /* 负边距使其充满卡片 */
+            border-radius: 8px 8px 0 0; /* 与下方标题圆角衔接 */
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 10; /* 确保在最顶层 */
+            position: relative;
         }
         .btn {
             display: inline-block;
@@ -68,15 +91,21 @@
             border-radius: 4px;
             border: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.95em; /* 统一为0.95em */
             line-height: 1.4;
+        }
+        /* 新增：大号按钮样式 */
+        .btn-lg {
+            padding: 12px 24px;
+            font-size: 1.1em;
+            line-height: 1.5;
         }
         .btn:hover {
             opacity: 0.9;
         }
         .btn-sm {
             padding: 4px 8px;
-            font-size: 12px;
+            font-size: 0.85em; /* 相对小一点 */
         }
         .btn-danger {
             background-color: var(--danger-color);
@@ -89,7 +118,7 @@
         }
         .btn-export {
             padding: 4px 8px;
-            font-size: 12px;
+            font-size: 0.85em; /* 相对小一点 */
             margin-left: 8px;
         }
         .form-group {
@@ -99,7 +128,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            font-size: 0.95em;
+            font-size: 0.95em; /* 统一为0.95em */
         }
         input[type="text"], input[type="number"], input[type="date"], select {
             width: 100%;
@@ -107,7 +136,7 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             box-sizing: border-box;
-            font-size: 0.95em;
+            font-size: 0.95em; /* 统一为0.95em */
         }
         /* 修改：专门针对日期输入框的样式，限制其最大宽度以适应手机 */
         input[type="date"] {
@@ -123,7 +152,7 @@
         .radio-item, .checkbox-item {
             display: flex;
             align-items: center;
-            font-size: 0.9em;
+            font-size: 0.95em; /* 统一为0.95em */
         }
         .radio-item input, .checkbox-item input {
             margin-right: 4px;
@@ -137,7 +166,7 @@
             min-width: 600px;
             border-collapse: collapse;
             margin-top: 10px;
-            font-size: 0.9em;
+            font-size: 0.95em; /* 统一为0.95em */
         }
         th, td {
             border: 1px solid var(--border-color);
@@ -167,7 +196,7 @@
         .balance-item {
             padding: 6px 0;
             border-bottom: 1px dashed var(--border-color);
-            font-size: 0.95em;
+            font-size: 0.95em; /* 统一为0.95em */
         }
         .balance-item strong {
             display: inline-block;
@@ -199,7 +228,7 @@
             padding: 2px 8px;
             border-radius: 12px;
             margin: 0 3px;
-            font-size: 11px;
+            font-size: 0.85em; /* 相对小一点 */
         }
         /* 新增：折叠面板标题样式 */
         .collapsible-header {
@@ -226,9 +255,24 @@
             background-color: #f8f9fa;
             border-left: 3px solid #5bc0de;
         }
+        /* 新增：为特定卡片添加背景色 */
+        .card-record-expense {
+            background-color: #e8f5e8; /* 很淡的草绿色 */
+        }
+        .card-expenses-list {
+            background-color: #e8f4f8; /* 很淡的天蓝色 */
+        }
+        .card-settlement-center {
+            background-color: #fff8e1; /* 很淡的奶黄色 */
+        }
     </style>
 </head>
 <body>
+
+    <!-- 修改：新的精简提示条，并移到页面最顶部 -->
+    <div class="hint-banner">
+        请先添加成员，然后开始记账。
+    </div>
 
     <!-- 修改：新的标题结构 -->
     <h1 class="main-title">
@@ -236,12 +280,8 @@
         <span id="ledgerNameDisplay" class="ledger-name-part">(未命名)</span>
     </h1>
 
-    <!-- 修改：新的精简提示条 -->
-    <div class="hint-banner">
-        请先添加成员，然后开始记账。
-    </div>
-
-    <div class="card">
+    <!-- 修改：为“记录新费用”卡片添加特定类 -->
+    <div class="card card-record-expense">
         <h2>记录新费用</h2>
         
         <div class="form-group">
@@ -296,10 +336,12 @@
             <div class="checkbox-list" id="splitUsersCheckboxes"></div>
         </div>
         
-        <button class="btn btn-success" onclick="addExpense()">记录费用</button>
+        <!-- 修改：记录费用按钮调大一级 -->
+        <button class="btn btn-success btn-lg" onclick="addExpense()">记录费用</button>
     </div>
 
-    <div class="card">
+    <!-- 修改：为“费用明细”卡片添加特定类 -->
+    <div class="card card-expenses-list">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2>费用明细</h2>
         </div>
@@ -308,7 +350,8 @@
         </div>
     </div>
 
-    <div class="card">
+    <!-- 修改：为“结算中心”卡片添加特定类 -->
+    <div class="card card-settlement-center">
         <h2>结算中心</h2>
         <button class="btn" onclick="calculateBalances()">计算并查看结算单</button>
         <div class="table-container">
@@ -633,9 +676,9 @@
                     <thead>
                         <tr>
                             <th>姓名</th>
-                            <th class="center-cell">垫付总额</th>
-                            <th class="center-cell">消费总额</th>
-                            <th class="center-cell">应结</th>
+                            <th class="right-cell">垫付总额</th>
+                            <th class="right-cell">消费总额</th>
+                            <th class="right-cell">应结</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -718,12 +761,12 @@
                     <thead>
                         <tr>
                             <th>日期</th>
-                            <th class="center-cell">金额</th>
-                            <th class="center-cell">人均</th>
+                            <th class="right-cell">金额</th>
+                            <th class="right-cell">人均</th>
                             <th>大类</th>
                             <th>说明</th>
                             <th>付款人</th>
-                            <th class="center-cell">分摊人</th>
+                            <th class="left-cell">分摊人</th>
                             <th class="center-cell">删除</th>
                         </tr>
                     </thead>
