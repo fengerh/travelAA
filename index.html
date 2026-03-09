@@ -16,19 +16,22 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             max-width: 1000px;
             margin: 0 auto;
-            padding: 15px; /* 调小内边距以适应小屏 */
+            padding: 15px;
             background-color: #f5f5f5;
+            /* 关键：锁定视口，防止键盘弹起时页面跳动 */
+            height: 100vh;
+            overflow: auto;
         }
         .card {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px; /* 调小内边距 */
+            padding: 15px;
             margin-bottom: 15px;
         }
         h1, h2, h3 {
             color: var(--primary-color);
-            font-size: 1.4em; /* 调小标题字体 */
+            font-size: 1.4em;
         }
         .btn {
             display: inline-block;
@@ -40,7 +43,6 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
-            /* 移动端优化：增加触摸面积 */
             line-height: 1.4;
         }
         .btn:hover {
@@ -56,11 +58,17 @@
         .btn-success {
             background-color: var(--success-color);
         }
-        .btn-export, .btn-help {
-            background-color: #5bc0de; /* 给导出和帮助按钮一个特殊颜色 */
+        .btn-export, .btn-help, .btn-calculator {
+            background-color: #5bc0de; /* 统一为青色 */
+        }
+        /* 修改：导出按钮变小，样式更像一个图标 */
+        .btn-export {
+            padding: 4px 8px;
+            font-size: 12px;
+            margin-left: 8px; /* 与旁边按钮拉开距离 */
         }
         .form-group {
-            margin-bottom: 12px; /* 减小间距 */
+            margin-bottom: 12px;
         }
         label {
             display: block;
@@ -76,37 +84,40 @@
             box-sizing: border-box;
             font-size: 0.95em;
         }
+        /* 金额输入框特殊样式，增加左右padding以便按钮不遮挡 */
+        #expenseAmount {
+            padding-left: 30px; /* 为计算按钮留出空间 */
+        }
         .radio-list, .checkbox-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px; /* 减小间距 */
+            gap: 12px;
             margin-top: 5px;
         }
         .radio-item, .checkbox-item {
             display: flex;
             align-items: center;
-            font-size: 0.9em; /* 减小字体 */
+            font-size: 0.9em;
         }
         .radio-item input, .checkbox-item input {
             margin-right: 4px;
         }
-        /* 表格样式 */
         .table-container {
-            overflow-x: auto; /* 关键：允许水平滚动 */
-            -webkit-overflow-scrolling: touch; /* 平滑滚动，尤其在iOS上 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         table {
-            width: 100%; /* 在容器内占满 */
-            min-width: 600px; /* 设置一个最小宽度，保证在小屏幕上也能横向滚动查看 */
+            width: 100%;
+            min-width: 600px;
             border-collapse: collapse;
             margin-top: 10px;
-            font-size: 0.9em; /* 整体缩小表格字体 */
+            font-size: 0.9em;
         }
         th, td {
             border: 1px solid var(--border-color);
-            padding: 8px 6px; /* 调整单元格内边距 */
+            padding: 8px 6px;
             text-align: left;
-            white-space: nowrap; /* 防止文字换行 */
+            white-space: nowrap;
         }
         th {
             background-color: #f1f3f4;
@@ -155,18 +166,19 @@
             background-color: #e9ecef;
             padding: 2px 8px;
             border-radius: 12px;
-            margin: 0 3px; /* 减小徽章间距 */
+            margin: 0 3px;
             font-size: 11px;
         }
+        /* 修改：减小提示卡片的内边距和字体大小，使其更紧凑 */
         .hint-card {
             background-color: #fff3cd;
             border-color: #ffeaa7;
             color: #856404;
             border-radius: 4px;
-            padding: 12px;
+            padding: 8px 12px; /* 减小内边距 */
             margin-bottom: 15px;
             text-align: center;
-            font-size: 0.95em;
+            font-size: 0.85em; /* 减小字体 */
         }
         .help-text {
             font-size: 0.85em;
@@ -176,25 +188,81 @@
             background-color: #f8f9fa;
             border-left: 3px solid #5bc0de;
         }
+        /* 新增：计算器模态框样式 */
+        .calculator-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .calculator-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 300px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .calculator-display {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            text-align: right;
+        }
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .calc-btn {
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .calc-btn.operator {
+            background-color: #e0e0e0;
+        }
+        .calc-btn.equals {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .calc-btn.clear {
+            background-color: var(--danger-color);
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <h1>领队旅行记账本</h1>
 
-    <!-- 醒目的提示卡片 -->
+    <!-- 修改：温馨提示更紧凑 -->
     <div class="card hint-card">
         <p><strong>💡 温馨提示</strong></p>
-        <p>请先到页面最下方添加所有团队成员，然后就可以开始愉快地记账啦！</p>
+        <p>请先添加成员，然后开始记账。</p>
     </div>
 
-    <!-- 新增费用 (已按新顺序排列) -->
     <div class="card">
         <h2>记录新费用</h2>
         
         <div class="form-group">
             <label for="expenseAmount">金额 (¥):</label>
-            <input type="number" step="0.01" id="expenseAmount" placeholder="0.00">
+            <div style="position: relative; display: flex; align-items: center;">
+                <!-- 修改：在金额输入框左侧添加一个计算器按钮 -->
+                <button class="btn btn-calculator" style="position: absolute; left: 8px; z-index: 1;" onclick="openCalculator()">Calc</button>
+                <input type="number" step="0.01" id="expenseAmount" placeholder="0.00" style="padding-left: 40px;"> <!-- 调整内边距 -->
+            </div>
         </div>
         
         <div class="form-group">
@@ -230,7 +298,7 @@
         
         <div class="form-group">
             <label for="expenseDesc">费用说明: <span style="color: red;">*</span></label>
-            <input type="text" id="expenseDesc" placeholder="例如：北京-上海高铁票、外滩附近餐厅...">
+            <input type="text" id="expenseDesc" placeholder="例如：北京-上海高铁票...">
         </div>
 
         <div class="form-group">
@@ -246,18 +314,16 @@
         <button class="btn btn-success" onclick="addExpense()">记录费用</button>
     </div>
 
-    <!-- 费用列表 -->
     <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2>费用明细</h2>
-            <button class="btn btn-export" onclick="exportToCSV()">导出Excel</button>
+            <!-- 移除主界面上的导出按钮 -->
         </div>
         <div class="table-container">
             <div id="expensesList"></div>
         </div>
     </div>
 
-    <!-- 结算中心 (已更新为表格形式) -->
     <div class="card">
         <h2>结算中心</h2>
         <button class="btn" onclick="calculateBalances()">计算并查看结算单</button>
@@ -266,7 +332,6 @@
         </div>
     </div>
 
-    <!-- 成员管理 (移到底部) -->
     <div class="card">
         <h2>成员管理</h2>
         <div class="form-group">
@@ -279,9 +344,12 @@
             <strong>当前成员:</strong>
             <span id="participantsList"></span>
         </div>
+        <!-- 修改：帮助面板内容 -->
         <div id="helpSection" class="help-text hidden">
             <p><strong>数据管理:</strong></p>
-            <p>• <strong>导出数据:</strong> 在“费用明细”区域点击“导出Excel”按钮，可将所有费用记录保存为CSV文件，方便您备份。</p>
+            <p>• <strong>导出数据:</strong> 点击下面的按钮，可将所有费用记录保存为CSV文件。</p>
+            <!-- 修改：将导出按钮移到这里 -->
+            <button class="btn btn-export" onclick="exportToCSV()">导出Excel</button>
             <p>• <strong>数据重置:</strong> 如果数据出现异常，可以点击下方按钮进行重置（此操作不可逆，请谨慎使用）。</p>
             <button class="btn btn-danger" onclick="resetAppDataWithExport()">⚠️ 重置所有数据</button>
         </div>
@@ -290,12 +358,46 @@
     <!-- 通知 -->
     <div id="notification" class="notification"></div>
 
+    <!-- 新增：计算器模态框 -->
+    <div id="calculatorModal" class="calculator-modal hidden">
+        <div class="calculator-content">
+            <input type="text" id="calculatorDisplay" class="calculator-display" readonly>
+            <div class="calculator-buttons">
+                <button class="calc-btn clear" onclick="clearCalc()">C</button>
+                <button class="calc-btn operator" onclick="appendCalc('/')">/</button>
+                <button class="calc-btn operator" onclick="appendCalc('*')">*</button>
+                <button class="calc-btn operator" onclick="backspaceCalc()">⌫</button>
+                
+                <button class="calc-btn" onclick="appendCalc('7')">7</button>
+                <button class="calc-btn" onclick="appendCalc('8')">8</button>
+                <button class="calc-btn" onclick="appendCalc('9')">9</button>
+                <button class="calc-btn operator" onclick="appendCalc('-')">-</button>
+
+                <button class="calc-btn" onclick="appendCalc('4')">4</button>
+                <button class="calc-btn" onclick="appendCalc('5')">5</button>
+                <button class="calc-btn" onclick="appendCalc('6')">6</button>
+                <button class="calc-btn operator" onclick="appendCalc('+')">+</button>
+
+                <button class="calc-btn" onclick="appendCalc('1')">1</button>
+                <button class="calc-btn" onclick="appendCalc('2')">2</button>
+                <button class="calc-btn" onclick="appendCalc('3')">3</button>
+                <button class="calc-btn equals" onclick="calculateResult()">=</button>
+
+                <button class="calc-btn" onclick="appendCalc('0')" style="grid-column: span 2;">0</button>
+                <button class="calc-btn" onclick="appendCalc('.')">.</button>
+                <button class="calc-btn" onclick="useResult()">Use</button>
+            </div>
+            <button class="btn btn-danger" onclick="closeCalculator()" style="width: 100%; margin-top: 10px;">关闭</button>
+        </div>
+    </div>
+
     <script>
         // 应用数据
         let appData = {
             participants: [],
             expenses: []
         };
+        let calcExpression = '';
 
         // 从 localStorage 加载数据
         function loadData() {
@@ -308,7 +410,6 @@
                     showNotification("加载本地数据失败，请刷新重试。");
                 }
             }
-            // 初始化日期为今天
             document.getElementById('expenseDate').valueAsDate = new Date();
             renderAll();
         }
@@ -336,25 +437,19 @@
         }
 
         // --- 核心更新：优化的带强制导出的重置功能 ---
-        // 此函数首先导出当前数据，然后才询问用户是否重置，并在重置后刷新页面
         function resetAppDataWithExport() {
-            // 1. 强制执行一次导出
             exportToCSVForReset();
 
-            // 2. 延迟一会儿再弹窗，确保文件下载完成
             setTimeout(() => {
                 if (confirm("⚠️ 您正在执行数据重置操作！\n\n由于数据已自动导出，请检查您的下载文件夹。\n\n此操作将永久删除所有本地成员和费用记录，并且无法撤销。\n\n确定要继续吗？")) {
-                    // 3. 用户确认后，清除数据并刷新页面
                     localStorage.removeItem('travelAccountingApp');
-                    location.reload(); // 刷新页面以确保数据被彻底清除
+                    location.reload();
                 }
-            }, 500); // 延迟500毫秒
+            }, 500);
         }
 
-        // 用于重置前的专用导出函数
         function exportToCSVForReset() {
-            // 即使没有费用记录，也生成一个空的CSV结构，让用户知道这是重置前的备份
-            const headers = ['日期', '金额', '人均', '大类', '说明', '付款人', '分摊人']; // 导出时也不含ID
+            const headers = ['日期', '金额', '人均', '大类', '说明', '付款人', '分摊人'];
             const csvContent = [
                 headers.join(','),
                 ...(appData.expenses.length > 0 ? 
@@ -367,21 +462,19 @@
                       `"${item.payer}"`,
                       `"${item.splitAmong.join('; ')}"`
                   ].join(',')) : 
-                  []) // 如果没有数据，则为空数组
+                  [])
             ].join('\n');
 
             const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
-            // 使用一个特殊的文件名来标识这是重置前的备份
             link.setAttribute('download', `重置前备份_旅行费用明细_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.csv`);
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
-
 
         // 添加成员
         function addParticipant() {
@@ -400,7 +493,7 @@
             appData.participants.push(name);
             input.value = '';
             saveData();
-            renderAll(); // 重新渲染所有UI以更新下拉菜单和复选框
+            renderAll();
         }
 
         // 删除成员
@@ -411,7 +504,6 @@
             }
             if (confirm(`确定要移除成员 "${name}" 吗？此操作会删除与此成员相关的所有费用记录。`)) {
                 appData.participants = appData.participants.filter(p => p !== name);
-                // 清理掉与该成员相关的费用记录
                 appData.expenses = appData.expenses.filter(e => 
                     e.payer !== name && !e.splitAmong.includes(name)
                 );
@@ -464,7 +556,7 @@
             }
 
             const newExpense = {
-                id: Date.now(), // 使用时间戳作为唯一ID
+                id: Date.now(),
                 amount: amount,
                 payer: payer,
                 description: desc,
@@ -475,15 +567,17 @@
 
             appData.expenses.push(newExpense);
             
-            // 重置表单
             amountInput.value = '';
             descInput.value = '';
-            document.getElementById('expenseDate').valueAsDate = new Date(); // 重置为今天
-            document.querySelectorAll('input[name="expenseCategory"]').forEach(radio => radio.checked = false); // 取消大类选择
-            document.querySelectorAll('#splitUsersCheckboxes input').forEach(cb => cb.checked = true); // 默认全选分摊人
+            document.getElementById('expenseDate').valueAsDate = new Date();
+            document.querySelectorAll('input[name="expenseCategory"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('#splitUsersCheckboxes input').forEach(cb => cb.checked = true);
             
             saveData();
-            renderExpensesList(); // 只重新渲染费用列表
+            renderExpensesList();
+            if (!document.getElementById('balancesResult').classList.contains('hidden')) {
+                    calculateBalances();
+                }
             showNotification("费用已记录");
         }
 
@@ -493,14 +587,12 @@
                 appData.expenses = appData.expenses.filter(e => e.id !== id);
                 saveData();
                 renderExpensesList();
-                // 如果结算单已打开，也重新计算
                 if (!document.getElementById('balancesResult').classList.contains('hidden')) {
                     calculateBalances();
                 }
             }
         }
 
-        // --- 核心更新：重写计算结算逻辑 ---
         function calculateBalances() {
             if (appData.participants.length === 0) {
                 showNotification("请先添加成员！");
@@ -511,27 +603,22 @@
                 return;
             }
 
-            // 初始化每个用户的统计对象
             const userStats = {};
             appData.participants.forEach(p => {
                 userStats[p] = { paid: 0, consumed: 0 };
             });
 
-            // 遍历每一条费用记录，累加每个人的垫付和消费
             appData.expenses.forEach(expense => {
                 const { amount, payer, splitAmong } = expense;
                 
-                // 增加付款人的垫付总额
                 userStats[payer].paid += amount;
                 
-                // 计算并增加每个分摊人的消费额
                 const sharePerPerson = amount / splitAmong.length;
                 splitAmong.forEach(person => {
                     userStats[person].consumed += sharePerPerson;
                 });
             });
 
-            // 生成包含垫付、消费和结算结果的表格
             const tableRows = [];
             let hasAnyData = false;
 
@@ -547,10 +634,10 @@
 
                 let statusText = "金额已平";
                 let statusClass = "";
-                if (netBalance > 0.01) { // 应收
+                if (netBalance > 0.01) {
                     statusText = `应收 ¥${netBalance.toFixed(2)}`;
                     statusClass = 'amount-should-get';
-                } else if (netBalance < -0.01) { // 应付
+                } else if (netBalance < -0.01) {
                     statusText = `应付 ¥${Math.abs(netBalance).toFixed(2)}`;
                     statusClass = 'amount-should-pay';
                 }
@@ -565,7 +652,6 @@
                 `);
             });
 
-            // 渲染表格
             const resultDiv = document.getElementById('balancesResult');
             if (!hasAnyData) {
                 resultDiv.innerHTML = '<p style="color: gray; text-align: center;">暂无费用记录，无法计算结算</p>';
@@ -592,15 +678,13 @@
             resultDiv.classList.remove('hidden');
         }
 
-
-        // 导出为 CSV 文件 (常规导出)
         function exportToCSV() {
             if (appData.expenses.length === 0) {
                 showNotification("没有费用记录可供导出！");
                 return;
             }
 
-            const headers = ['日期', '金额', '人均', '大类', '说明', '付款人', '分摊人']; // 不含ID
+            const headers = ['日期', '金额', '人均', '大类', '说明', '付款人', '分摊人'];
             const csvContent = [
                 headers.join(','),
                 ...appData.expenses.map(item => [
@@ -626,7 +710,6 @@
             showNotification("费用明细已导出");
         }
 
-
         // 渲染所有UI
         function renderParticipants() {
             const listEl = document.getElementById('participantsList');
@@ -635,7 +718,6 @@
             ).join(' ') || '<span style="color: gray;">尚未添加成员</span>';
         }
 
-        // 渲染费用表单中的下拉和复选框
         function renderExpenseForm() {
             const payerSelect = document.getElementById('expensePayer');
             const checkboxesContainer = document.getElementById('splitUsersCheckboxes');
@@ -646,14 +728,12 @@
 
             checkboxesContainer.innerHTML = appData.participants.map(p => 
                 `<div class="checkbox-item">
-                    <input type="checkbox" id="chk_${p}" value="${p}" checked> <!-- 默认勾选 -->
+                    <input type="checkbox" id="chk_${p}" value="${p}" checked>
                     <label for="chk_${p}">${p}</label>
                 </div>`
             ).join('') || '<span style="color: gray;">请先添加成员</span>';
         }
 
-        // --- 核心更新：渲染费用列表 (表格形式)，并绑定事件 ---
-        // 这是本次修复的关键部分
         function renderExpensesList() {
             const listEl = document.getElementById('expensesList');
             if (appData.expenses.length === 0) {
@@ -661,8 +741,6 @@
                 return;
             }
 
-            // ***关键更新：按用户输入的日期 (date) 排序，而非内部ID***
-            // 将日期字符串转换为时间戳进行比较，以实现正确排序
             const sortedExpenses = [...appData.expenses].sort((a, b) => {
                 return new Date(b.date).getTime() - new Date(a.date).getTime();
             });
@@ -703,11 +781,68 @@
             listEl.innerHTML = tableHtml;
         }
 
-        // 渲染所有
         function renderAll() {
             renderParticipants();
             renderExpenseForm();
             renderExpensesList();
+        }
+
+        // --- 新增：计算器相关函数 ---
+        function openCalculator() {
+            calcExpression = '';
+            document.getElementById('calculatorDisplay').value = '0';
+            document.getElementById('calculatorModal').classList.remove('hidden');
+        }
+
+        function closeCalculator() {
+            document.getElementById('calculatorModal').classList.add('hidden');
+        }
+
+        function appendCalc(value) {
+            if (calcExpression === '0' && isNaN(value)) {
+                calcExpression = '0' + value;
+            } else if (calcExpression === '0' && !isNaN(value)) {
+                calcExpression = value;
+            } else {
+                calcExpression += value;
+            }
+            document.getElementById('calculatorDisplay').value = calcExpression;
+        }
+
+        function clearCalc() {
+            calcExpression = '';
+            document.getElementById('calculatorDisplay').value = '0';
+        }
+
+        function backspaceCalc() {
+            calcExpression = calcExpression.slice(0, -1);
+            document.getElementById('calculatorDisplay').value = calcExpression || '0';
+        }
+
+        function calculateResult() {
+            try {
+                // 使用 Function 构造器代替 eval，更安全
+                const result = Function('"use strict"; return (' + calcExpression + ')')();
+                if (typeof result === 'number' && isFinite(result)) {
+                    document.getElementById('calculatorDisplay').value = result;
+                    calcExpression = String(result);
+                } else {
+                    throw new Error();
+                }
+            } catch (e) {
+                document.getElementById('calculatorDisplay').value = '错误';
+                calcExpression = '';
+            }
+        }
+
+        function useResult() {
+            const result = parseFloat(document.getElementById('calculatorDisplay').value);
+            if (!isNaN(result) && isFinite(result)) {
+                document.getElementById('expenseAmount').value = result.toFixed(2);
+                closeCalculator();
+            } else {
+                showNotification("请先计算出有效结果！");
+            }
         }
 
         // 应用启动
