@@ -84,10 +84,6 @@
             box-sizing: border-box;
             font-size: 0.95em;
         }
-        /* 金额输入框特殊样式，增加左右padding以便按钮不遮挡 */
-        #expenseAmount {
-            padding-left: 30px; /* 为计算按钮留出空间 */
-        }
         .radio-list, .checkbox-list {
             display: flex;
             flex-wrap: wrap;
@@ -188,59 +184,6 @@
             background-color: #f8f9fa;
             border-left: 3px solid #5bc0de;
         }
-        /* 新增：计算器模态框样式 */
-        .calculator-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        .calculator-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 300px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .calculator-display {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            border: 1px solid #ccc;
-            text-align: right;
-        }
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .calc-btn {
-            padding: 10px;
-            font-size: 1em;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .calc-btn.operator {
-            background-color: #e0e0e0;
-        }
-        .calc-btn.equals {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .calc-btn.clear {
-            background-color: var(--danger-color);
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -258,11 +201,7 @@
         
         <div class="form-group">
             <label for="expenseAmount">金额 (¥):</label>
-            <div style="position: relative; display: flex; align-items: center;">
-                <!-- 修改：在金额输入框左侧添加一个计算器按钮 -->
-                <button class="btn btn-calculator" style="position: absolute; left: 8px; z-index: 1;" onclick="openCalculator()">Calc</button>
-                <input type="number" step="0.01" id="expenseAmount" placeholder="0.00" style="padding-left: 40px;"> <!-- 调整内边距 -->
-            </div>
+            <input type="number" step="0.01" id="expenseAmount" placeholder="0.00">
         </div>
         
         <div class="form-group">
@@ -358,46 +297,12 @@
     <!-- 通知 -->
     <div id="notification" class="notification"></div>
 
-    <!-- 新增：计算器模态框 -->
-    <div id="calculatorModal" class="calculator-modal hidden">
-        <div class="calculator-content">
-            <input type="text" id="calculatorDisplay" class="calculator-display" readonly>
-            <div class="calculator-buttons">
-                <button class="calc-btn clear" onclick="clearCalc()">C</button>
-                <button class="calc-btn operator" onclick="appendCalc('/')">/</button>
-                <button class="calc-btn operator" onclick="appendCalc('*')">*</button>
-                <button class="calc-btn operator" onclick="backspaceCalc()">⌫</button>
-                
-                <button class="calc-btn" onclick="appendCalc('7')">7</button>
-                <button class="calc-btn" onclick="appendCalc('8')">8</button>
-                <button class="calc-btn" onclick="appendCalc('9')">9</button>
-                <button class="calc-btn operator" onclick="appendCalc('-')">-</button>
-
-                <button class="calc-btn" onclick="appendCalc('4')">4</button>
-                <button class="calc-btn" onclick="appendCalc('5')">5</button>
-                <button class="calc-btn" onclick="appendCalc('6')">6</button>
-                <button class="calc-btn operator" onclick="appendCalc('+')">+</button>
-
-                <button class="calc-btn" onclick="appendCalc('1')">1</button>
-                <button class="calc-btn" onclick="appendCalc('2')">2</button>
-                <button class="calc-btn" onclick="appendCalc('3')">3</button>
-                <button class="calc-btn equals" onclick="calculateResult()">=</button>
-
-                <button class="calc-btn" onclick="appendCalc('0')" style="grid-column: span 2;">0</button>
-                <button class="calc-btn" onclick="appendCalc('.')">.</button>
-                <button class="calc-btn" onclick="useResult()">Use</button>
-            </div>
-            <button class="btn btn-danger" onclick="closeCalculator()" style="width: 100%; margin-top: 10px;">关闭</button>
-        </div>
-    </div>
-
     <script>
         // 应用数据
         let appData = {
             participants: [],
             expenses: []
         };
-        let calcExpression = '';
 
         // 从 localStorage 加载数据
         function loadData() {
@@ -785,64 +690,6 @@
             renderParticipants();
             renderExpenseForm();
             renderExpensesList();
-        }
-
-        // --- 新增：计算器相关函数 ---
-        function openCalculator() {
-            calcExpression = '';
-            document.getElementById('calculatorDisplay').value = '0';
-            document.getElementById('calculatorModal').classList.remove('hidden');
-        }
-
-        function closeCalculator() {
-            document.getElementById('calculatorModal').classList.add('hidden');
-        }
-
-        function appendCalc(value) {
-            if (calcExpression === '0' && isNaN(value)) {
-                calcExpression = '0' + value;
-            } else if (calcExpression === '0' && !isNaN(value)) {
-                calcExpression = value;
-            } else {
-                calcExpression += value;
-            }
-            document.getElementById('calculatorDisplay').value = calcExpression;
-        }
-
-        function clearCalc() {
-            calcExpression = '';
-            document.getElementById('calculatorDisplay').value = '0';
-        }
-
-        function backspaceCalc() {
-            calcExpression = calcExpression.slice(0, -1);
-            document.getElementById('calculatorDisplay').value = calcExpression || '0';
-        }
-
-        function calculateResult() {
-            try {
-                // 使用 Function 构造器代替 eval，更安全
-                const result = Function('"use strict"; return (' + calcExpression + ')')();
-                if (typeof result === 'number' && isFinite(result)) {
-                    document.getElementById('calculatorDisplay').value = result;
-                    calcExpression = String(result);
-                } else {
-                    throw new Error();
-                }
-            } catch (e) {
-                document.getElementById('calculatorDisplay').value = '错误';
-                calcExpression = '';
-            }
-        }
-
-        function useResult() {
-            const result = parseFloat(document.getElementById('calculatorDisplay').value);
-            if (!isNaN(result) && isFinite(result)) {
-                document.getElementById('expenseAmount').value = result.toFixed(2);
-                closeCalculator();
-            } else {
-                showNotification("请先计算出有效结果！");
-            }
         }
 
         // 应用启动
