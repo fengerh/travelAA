@@ -659,17 +659,24 @@
             return `<tr>
                 <td>${e.date}</td>
                 <td class="right-cell">¥${e.amount.toFixed(2)}</td>
-                <td class="right-cell">¥${per}</td>
                 <td>${e.category}</td>
                 <td>${e.description}</td>
                 <td>${e.payer}</td>
                 <td class="left-cell">${e.splitAmong.join(', ')}</td>
+                <td class="right-cell">¥${per}</td>
                 <td class="center-cell"><button class="btn btn-sm btn-danger" onclick="deleteExpense(${e.id})">删除</button></td>
             </tr>`;
         }).join('');
         el.innerHTML = `<table>
             <thead><tr>
-                <th>日期</th><th class="right-cell">金额</th><th class="right-cell">人均</th><th>大类</th><th>说明</th><th>付款人</th><th class="left-cell">分摊人</th><th class="center-cell">删除</th>
+                <th>日期</th>
+                <th class="right-cell">金额</th>
+                <th>大类</th>
+                <th>说明</th>
+                <th>付款人</th>
+                <th class="left-cell">分摊人</th>
+                <th class="right-cell">人均</th>
+                <th class="center-cell">删除</th>
             </tr></thead>
             <tbody>${rows}</tbody>
         </table>`;
