@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>旅行记账本 v20260410.1515</title>
+    <title>旅行记账本 v20260410.1552</title>
     <style>
         /* ===== 基础配色 ===== */
         :root {
@@ -208,7 +208,7 @@
             text-align: center;
         }
         td { color: #333; text-align: center; }
-        .right-cell { text-align: center; }
+        .right-cell { text-align: right; }
         .center-cell { text-align: center; }
         tr:last-child td { border-bottom: none; }
 
@@ -359,6 +359,10 @@
             text-align: center;
         }
 
+        /* 应收应付颜色 */
+        .amount-should-get { color: #2e8b57; font-weight: 500; }  /* 绿色 + */
+        .amount-should-pay { color: #d9534f; font-weight: 500; }  /* 红色 − */
+
         /* 自定义复选框：打勾样式 */
         .checkbox-item input[type="checkbox"] {
             width: 18px;
@@ -394,6 +398,7 @@
             width: 10px;
             height: 18px;
         }
+
 
     </style>
 </head>
@@ -579,12 +584,20 @@
             const share = e.amount/e.splitAmong.length;
             e.splitAmong.forEach(p=>{ if(stats[p]) stats[p].consumed += share; });
         });
-        const rows = appData.participants.map(p=>{
-            const net = stats[p].paid - stats[p].consumed;
-            let status='已平', cls='';
-            if(net>0.01) { status=`应收 ¥${net.toFixed(2)}`; cls='amount-should-get'; }
-            else if(net<-0.01) { status=`应付 ¥${Math.abs(net).toFixed(2)}`; cls='amount-should-pay'; }
-            return `<tr><td>${p}</td><td class="right-cell">¥${stats[p].paid.toFixed(2)}</td><td class="right-cell">¥${stats[p].consumed.toFixed(2)}</td><td class="right-cell ${cls}">${status}</td></tr>`;
+        const rows = appData.participants.map(p => {
+            const { paid, consumed } = stats[p];  // ✅ 改成 stats
+            const net = paid - consumed;
+            let status = '', cls = '';
+            if (net > 0.01) {
+                status = `应收 +¥${net.toFixed(2)}`;
+                cls = 'amount-should-get';
+            } else if (net < -0.01) {
+                status = `应付 −¥${Math.abs(net).toFixed(2)}`;
+                cls = 'amount-should-pay';
+            } else {
+                status = '已平 ¥0.00';
+            }
+            return `<tr><td>${p}</td><td class="right-cell">¥${paid.toFixed(2)}</td><td class="right-cell">¥${consumed.toFixed(2)}</td><td class="right-cell ${cls}">${status}</td></tr>`;
         }).join('');
         const cats = ['餐饮','交通','门票','住宿','其他'];
         const catStats = {}; appData.participants.forEach(p=>{ catStats[p]={}; cats.forEach(c=>catStats[p][c]=0); });
