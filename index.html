@@ -2,22 +2,22 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>旅行记账本 20260410.1352</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>旅行记账本 v20260410.1434</title>
     <style>
-        /* ===== 配色：主标题灰底紫字，表头浅灰 ===== */
+        /* ===== 基础配色（灰底紫字标题） ===== */
         :root {
-            --primary-color: #7c6a9c;      /* 淡紫主色 */
+            --primary-color: #7c6a9c;
             --success-color: #6f8f7c;
             --danger-color: #c06c6c;
             --light-bg: #f9f9fc;
             --border-color: #e0d9eb;
             --main-bg: #f5f3f9;
             --card-bg: #ffffff;
-            --header-bg: #f0f0f5;           /* 灰色标题背景 */
-            --header-color: #7c6a9c;         /* 紫色标题文字 */
+            --header-bg: #f0f0f5;
+            --header-color: #7c6a9c;
             --text-secondary: #5e5270;
-            --table-header-bg: #f2f2f5;      /* 浅灰表头 */
+            --table-header-bg: #f2f2f5;
         }
 
         * {
@@ -25,32 +25,33 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 24px 20px;
+            padding: 16px 12px;
             background-color: var(--main-bg);
             min-height: 100vh;
             line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
         }
 
+        /* 卡片 */
         .card {
             background-color: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-            padding: 24px 28px;
-            margin-bottom: 24px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 18px 16px;
+            margin-bottom: 18px;
             border: 1px solid #f0eef4;
-            transition: box-shadow 0.2s;
         }
 
-        /* 主标题：灰色背景 + 紫色文字 */
+        /* 主标题：灰底紫字 */
         h1 {
             background-color: var(--header-bg);
             color: var(--header-color);
-            font-size: 2em;
-            margin: 0 -20px 24px -20px;
-            padding: 20px 28px;
+            font-size: 1.8em;
+            margin: -16px -12px 18px -12px;
+            padding: 18px 20px;
             border-radius: 24px 24px 0 0;
             font-weight: 600;
             letter-spacing: 0.3px;
@@ -59,19 +60,20 @@
 
         h2 {
             color: var(--primary-color);
-            font-size: 1.5em;
-            margin: 0 0 16px 0;
+            font-size: 1.4em;
+            margin: 0 0 14px 0;
             font-weight: 500;
         }
 
         .main-title {
             display: flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .ledger-name-part {
-            font-size: 0.9em;
+            font-size: 0.8em;
             opacity: 0.9;
             font-weight: 400;
         }
@@ -80,22 +82,20 @@
             background-color: #e8e0f0;
             border: 1px solid #cdbde0;
             color: #3b2e4a;
-            padding: 14px 18px;
+            padding: 12px 16px;
             text-align: center;
-            font-size: 1em;
-            margin: -24px -28px 24px -28px;
-            border-radius: 20px 20px 0 0;
-            line-height: 1.6;
+            font-size: 0.9em;
+            margin: -18px -16px 18px -16px;
+            border-radius: 18px 18px 0 0;
+            line-height: 1.5;
         }
 
-        .hint-banner.hidden-banner {
-            display: none;
-        }
+        .hint-banner.hidden-banner { display: none; }
 
         /* 按钮 */
         .btn {
             display: inline-block;
-            padding: 10px 22px;
+            padding: 10px 20px;
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
@@ -106,30 +106,19 @@
             font-weight: 500;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
             transition: all 0.15s;
-            border: 1px solid transparent;
+            white-space: nowrap;
         }
-        .btn:hover {
-            opacity: 0.85;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-        }
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 0.9em;
-        }
-        .btn-lg {
-            padding: 14px 28px;
-            font-size: 1.1em;
-        }
+        .btn:hover { opacity: 0.85; }
+        .btn-sm { padding: 6px 12px; font-size: 0.85em; }
+        .btn-lg { padding: 14px 24px; font-size: 1em; }
         .btn-danger { background-color: var(--danger-color); }
         .btn-success { background-color: var(--success-color); }
 
-        /* 表单相关 */
-        .form-group {
-            margin-bottom: 18px;
-        }
+        /* 表单 */
+        .form-group { margin-bottom: 16px; }
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-weight: 600;
             font-size: 0.9em;
             color: var(--text-secondary);
@@ -140,7 +129,7 @@
             border: 1.5px solid var(--border-color);
             border-radius: 16px;
             background-color: #fefdff;
-            font-size: 0.95em;
+            font-size: 16px;  /* 防止iOS自动缩放 */
             transition: border 0.15s;
         }
         input:focus, select:focus {
@@ -149,25 +138,20 @@
             box-shadow: 0 0 0 4px rgba(124, 106, 156, 0.1);
         }
 
-        /* 桌面端两列表单布局 */
+        /* 桌面两列，移动自动单列 */
         .expense-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px 24px;
+            gap: 12px 18px;
         }
-        .full-width {
-            grid-column: span 2;
-        }
+        .full-width { grid-column: span 2; }
 
-        /* 强制横向排列：不换行 + 可滑动 */
+        /* 选项列表：桌面不换行可滑动，移动端换行 */
         .radio-list, .checkbox-list {
             display: flex;
-            flex-wrap: nowrap;
-            gap: 20px 28px;
-            margin-top: 8px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            -webkit-overflow-scrolling: touch;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            margin-top: 6px;
         }
         .radio-item, .checkbox-item {
             display: flex;
@@ -176,31 +160,32 @@
             white-space: nowrap;
         }
 
-        /* 表格优化：浅灰表头，内容默认居中，金额右对齐 */
+        /* 表格容器：移动端强制可滑动，优化滚动体验 */
         .table-container {
             overflow-x: auto;
             margin-top: 12px;
-            border-radius: 16px;
+            border-radius: 14px;
             border: 1px solid var(--border-color);
             background: white;
+            -webkit-overflow-scrolling: touch;
         }
         table {
             width: 100%;
-            min-width: 700px;
+            min-width: 680px;  /* 保证列内容不折行 */
             border-collapse: collapse;
-            font-size: 0.95em;
+            font-size: 0.9em;
             background: white;
             text-align: center;
+            white-space: nowrap;
         }
         th, td {
-            padding: 16px 14px;
+            padding: 14px 10px;
             border-bottom: 1px solid #eeeaf3;
         }
         th {
             background-color: var(--table-header-bg);
             font-weight: 600;
             color: #2e253a;
-            white-space: nowrap;
             border-bottom: 2px solid var(--border-color);
             text-align: center;
         }
@@ -208,23 +193,17 @@
             color: #333;
             text-align: center;
         }
-        .right-cell {
-            text-align: right;
-        }
-        .center-cell {
-            text-align: center;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
+        .right-cell { text-align: right; }
+        .center-cell { text-align: center; }
+        tr:last-child td { border-bottom: none; }
 
         .badge {
             background-color: #e4d9f0;
             color: #3a2d4a;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 30px;
-            font-size: 0.9em;
-            margin-right: 8px;
+            font-size: 0.85em;
+            margin-right: 6px;
             margin-bottom: 6px;
             display: inline-block;
         }
@@ -243,25 +222,26 @@
             margin-left: 12px;
             color: var(--primary-color);
         }
-        .collapsible-header.collapsed::after {
-            transform: rotate(-90deg);
-        }
+        .collapsible-header.collapsed::after { transform: rotate(-90deg); }
 
         .hidden { display: none; }
 
         .notification {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: #3e3450; color: #f1eaff; padding: 12px 28px;
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: #3e3450; color: #f1eaff; padding: 12px 24px;
             border-radius: 60px; opacity: 0; transition: opacity 0.3s; z-index: 1000;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            font-size: 0.9em;
+            white-space: nowrap;
         }
         .notification.show { opacity: 0.95; }
 
         .import-label {
             background-color: var(--success-color);
             border-radius: 40px;
-            padding: 10px 22px;
+            padding: 10px 20px;
             cursor: pointer;
+            display: inline-block;
         }
 
         .flex-between {
@@ -270,19 +250,48 @@
             align-items: center;
         }
 
-        /* 响应式 */
+        /* ========= 移动端专属优化 ========= */
         @media (max-width: 640px) {
-            body { padding: 16px 12px; }
-            .card { padding: 20px 16px; }
+            body { padding: 12px 10px; }
+            .card { padding: 16px 14px; margin-bottom: 16px; }
+            h1 { font-size: 1.6em; padding: 16px 18px; margin: -12px -10px 16px -10px; }
+            h2 { font-size: 1.3em; margin-bottom: 12px; }
+
+            /* 表单两列变单列 */
             .expense-form-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
             }
             .full-width { grid-column: span 1; }
-            h1 { margin: 0 -12px 20px -12px; padding: 18px 20px; }
+
+            /* 移动端选项允许换行 */
             .radio-list, .checkbox-list {
-                gap: 16px;
+                flex-wrap: wrap;
+                gap: 10px 16px;
             }
+            .radio-item, .checkbox-item {
+                white-space: nowrap;
+            }
+
+            /* 表格字体稍小，内边距微调 */
+            table { font-size: 0.85em; min-width: 600px; }
+            th, td { padding: 12px 8px; }
+
+            /* 按钮调整 */
+            .btn { padding: 8px 16px; font-size: 0.9em; }
+            .btn-lg { padding: 12px 20px; }
+
+            /* 筛选面板网格更紧凑 */
+            #filterPanel > div {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+        }
+
+        /* 更小屏（iPhone SE 等） */
+        @media (max-width: 380px) {
+            table { min-width: 550px; }
+            .badge { padding: 4px 10px; font-size: 0.8em; }
         }
     </style>
 </head>
@@ -297,22 +306,16 @@
     <span id="ledgerNameDisplay" class="ledger-name-part">(未命名)</span>
 </h1>
 
-<!-- 记录新费用 (可折叠，桌面两列) -->
+<!-- 记录新费用 -->
 <div class="card card-record-expense" style="background-color: #faf7ff;">
     <h2 id="expenseHeader" class="collapsible-header" onclick="toggleExpenseForm()">
         记录新费用
-        <span style="font-size:0.85rem; color:#6b5b7e; font-weight:normal;">(自动补全时分)</span>
+        <span style="font-size:0.8rem; color:#6b5b7e; font-weight:normal;">(自动补全时分)</span>
     </h2>
     <div id="expenseFormContent">
         <div class="expense-form-grid">
-            <div class="form-group">
-                <label>💰 金额 (¥)</label>
-                <input type="number" step="0.01" id="expenseAmount" placeholder="0.00">
-            </div>
-            <div class="form-group">
-                <label>📅 日期</label>
-                <input type="date" id="expenseDate">
-            </div>
+            <div class="form-group"><label>💰 金额 (¥)</label><input type="number" step="0.01" id="expenseAmount" placeholder="0.00"></div>
+            <div class="form-group"><label>📅 日期</label><input type="date" id="expenseDate"></div>
             <div class="form-group full-width">
                 <label>📂 费用大类 <span style="color: var(--danger-color);">*</span></label>
                 <div class="radio-list">
@@ -323,33 +326,23 @@
                     <div class="radio-item"><input type="radio" id="cat_other" name="expenseCategory" value="其他"><label for="cat_other">其他</label></div>
                 </div>
             </div>
-            <div class="form-group full-width">
-                <label>📝 费用说明 <span style="color: var(--danger-color);">*</span></label>
-                <input type="text" id="expenseDesc" placeholder="例如：北京-上海高铁票...">
-            </div>
-            <div class="form-group">
-                <label>👤 支付人</label>
-                <select id="expensePayer"></select>
-            </div>
-            <div class="form-group full-width">
-                <label>👥 费用分摊给</label>
-                <div class="checkbox-list" id="splitUsersCheckboxes"></div>
-            </div>
+            <div class="form-group full-width"><label>📝 费用说明 <span style="color: var(--danger-color);">*</span></label><input type="text" id="expenseDesc" placeholder="例如：北京-上海高铁票..."></div>
+            <div class="form-group"><label>👤 支付人</label><select id="expensePayer"></select></div>
+            <div class="form-group full-width"><label>👥 费用分摊给</label><div class="checkbox-list" id="splitUsersCheckboxes"></div></div>
         </div>
         <button class="btn btn-success btn-lg" onclick="addExpense()" style="margin-top: 8px;">📝 记录费用</button>
     </div>
 </div>
 
-<!-- 费用明细（可折叠） -->
+<!-- 费用明细 -->
 <div class="card card-expenses-list" style="background-color: #f5f7fb;">
     <div class="flex-between">
         <h2 id="expensesHeader" class="collapsible-header" onclick="toggleExpensesPanel()">📋 费用明细</h2>
         <button class="btn btn-sm" onclick="event.stopPropagation(); toggleFilterPanel()">🔍 筛选</button>
     </div>
-
     <div id="expensesContentWrapper">
-        <div id="filterPanel" class="hidden" style="margin: 16px 0 20px; padding: 18px; background: #f2edf7; border-radius: 20px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 14px;">
+        <div id="filterPanel" class="hidden" style="margin: 12px 0 16px; padding: 14px; background: #f2edf7; border-radius: 18px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 12px;">
                 <div><label>开始</label><input type="date" id="filterDateFrom" oninput="applyFilters()"></div>
                 <div><label>结束</label><input type="date" id="filterDateTo" oninput="applyFilters()"></div>
                 <div><label>大类</label><select id="filterCategory" onchange="applyFilters()"><option value="">全部</option><option>餐饮</option><option>交通</option><option>门票</option><option>住宿</option><option>其他</option></select></div>
@@ -362,11 +355,11 @@
     </div>
 </div>
 
-<!-- 结算中心 可折叠 -->
+<!-- 结算中心 -->
 <div class="card card-settlement-center" style="background-color: #fefbf5;">
     <h2 id="settlementHeader" class="collapsible-header" onclick="toggleSettlementPanel()">💰 结算中心</h2>
     <div id="settlementContentWrapper">
-        <button class="btn" onclick="calculateBalances()" style="margin: 10px 0 20px;">🧮 计算并查看结算单</button>
+        <button class="btn" onclick="calculateBalances()" style="margin: 10px 0 16px;">🧮 计算并查看结算单</button>
         <div class="table-container"><div id="balancesResult" class="hidden"></div></div>
     </div>
 </div>
@@ -375,30 +368,18 @@
 <div class="card">
     <h2 id="settingsHeader" class="collapsible-header collapsed" onclick="toggleSettingsPanel()">⚙️ 设置中心</h2>
     <div id="settingsPanelContent" class="hidden">
-        <div class="form-group">
-            <label>添加新成员</label>
-            <div style="display: flex; gap: 12px;">
-                <input type="text" id="newParticipant" placeholder="输入姓名" style="flex:1;">
-                <button class="btn" onclick="addParticipant()">添加</button>
-            </div>
-        </div>
-        <div style="margin: 18px 0;"><strong>当前成员:</strong> <span id="participantsList"></span></div>
-        <hr style="margin: 24px 0; border-top: 1px dashed var(--border-color);">
-        <div class="form-group">
-            <label>设置账本名称</label>
-            <div style="display: flex; gap: 12px;">
-                <input type="text" id="ledgerNameInput" placeholder="给账本起个名字..." style="flex:1;">
-                <button class="btn" onclick="setLedgerName()">设置</button>
-            </div>
-        </div>
-        <hr style="margin: 24px 0; border-top: 1px dashed var(--border-color);">
+        <div class="form-group"><label>添加新成员</label><div style="display: flex; gap: 10px;"><input type="text" id="newParticipant" placeholder="输入姓名" style="flex:1;"><button class="btn" onclick="addParticipant()">添加</button></div></div>
+        <div style="margin: 16px 0;"><strong>当前成员:</strong> <span id="participantsList"></span></div>
+        <hr style="margin: 20px 0; border-top: 1px dashed var(--border-color);">
+        <div class="form-group"><label>设置账本名称</label><div style="display: flex; gap: 10px;"><input type="text" id="ledgerNameInput" placeholder="给账本起个名字..." style="flex:1;"><button class="btn" onclick="setLedgerName()">设置</button></div></div>
+        <hr style="margin: 20px 0; border-top: 1px dashed var(--border-color);">
         <div class="form-group">
             <label>数据管理</label>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
                 <label for="importFile" class="import-label btn-success">📤 导入CSV</label>
                 <input type="file" id="importFile" accept=".csv" onchange="handleFileImport(event)" style="display:none;">
                 <button class="btn" onclick="exportToCSV()" style="background-color: #6b5b7e;">📥 导出Excel</button>
-                <button class="btn btn-danger" onclick="resetAppDataWithExport()">⚠️ 重置数据</button>
+                <button class="btn btn-danger" onclick="resetAppDataWithExport()">⚠️ 重置</button>
             </div>
         </div>
     </div>
@@ -407,7 +388,7 @@
 <div id="notification" class="notification"></div>
 
 <script>
-    // ==================== 核心逻辑（与之前一致） ====================
+    // ========== 核心逻辑（与前版相同，略作精简保证运行） ==========
     let appData = { ledgerName: "未命名", participants: [], expenses: [] };
 
     function loadData() {
