@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>旅行记账本 v20260410.1434</title>
+    <title>旅行记账本 v20260410.1500</title>
     <style>
-        /* ===== 基础配色（灰底紫字标题） ===== */
+        /* ===== 基础配色 ===== */
         :root {
             --primary-color: #7c6a9c;
             --success-color: #6f8f7c;
@@ -35,7 +35,6 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        /* 卡片 */
         .card {
             background-color: var(--card-bg);
             border-radius: 18px;
@@ -45,7 +44,6 @@
             border: 1px solid #f0eef4;
         }
 
-        /* 主标题：灰底紫字 */
         h1 {
             background-color: var(--header-bg);
             color: var(--header-color);
@@ -92,7 +90,6 @@
 
         .hint-banner.hidden-banner { display: none; }
 
-        /* 按钮 */
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -129,8 +126,17 @@
             border: 1.5px solid var(--border-color);
             border-radius: 16px;
             background-color: #fefdff;
-            font-size: 16px;  /* 防止iOS自动缩放 */
+            font-size: 16px;
             transition: border 0.15s;
+        }
+        /* 针对日期输入框的 iPhone 修复 */
+        input[type="date"] {
+            width: auto;
+            min-width: 0;
+            max-width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            padding-right: 8px;
         }
         input:focus, select:focus {
             outline: none;
@@ -138,7 +144,7 @@
             box-shadow: 0 0 0 4px rgba(124, 106, 156, 0.1);
         }
 
-        /* 桌面两列，移动自动单列 */
+        /* 桌面两列 */
         .expense-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -146,11 +152,11 @@
         }
         .full-width { grid-column: span 2; }
 
-        /* 选项列表：桌面不换行可滑动，移动端换行 */
+        /* 选项列表：移动端更精细的控制 */
         .radio-list, .checkbox-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 20px;
+            gap: 8px 16px;
             margin-top: 6px;
         }
         .radio-item, .checkbox-item {
@@ -158,9 +164,21 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
+            /* 保证在 iPhone 上点击区域足够 */
+            padding: 4px 0;
+        }
+        /* 让选项在窄屏下均匀分布 */
+        @media (max-width: 480px) {
+            .radio-list, .checkbox-list {
+                margin-left: -4px;
+                margin-right: -4px;
+            }
+            .radio-item, .checkbox-item {
+                margin: 0 4px;
+            }
         }
 
-        /* 表格容器：移动端强制可滑动，优化滚动体验 */
+        /* 表格容器 */
         .table-container {
             overflow-x: auto;
             margin-top: 12px;
@@ -171,7 +189,7 @@
         }
         table {
             width: 100%;
-            min-width: 680px;  /* 保证列内容不折行 */
+            min-width: 680px;
             border-collapse: collapse;
             font-size: 0.9em;
             background: white;
@@ -189,10 +207,7 @@
             border-bottom: 2px solid var(--border-color);
             text-align: center;
         }
-        td {
-            color: #333;
-            text-align: center;
-        }
+        td { color: #333; text-align: center; }
         .right-cell { text-align: right; }
         .center-cell { text-align: center; }
         tr:last-child td { border-bottom: none; }
@@ -257,42 +272,95 @@
             h1 { font-size: 1.6em; padding: 16px 18px; margin: -12px -10px 16px -10px; }
             h2 { font-size: 1.3em; margin-bottom: 12px; }
 
-            /* 表单两列变单列 */
             .expense-form-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
             }
             .full-width { grid-column: span 1; }
 
-            /* 移动端选项允许换行 */
-            .radio-list, .checkbox-list {
-                flex-wrap: wrap;
-                gap: 10px 16px;
-            }
-            .radio-item, .checkbox-item {
-                white-space: nowrap;
+            /* 日期输入框在移动端更明确的宽度 */
+            input[type="date"] {
+                width: 100%;
+                max-width: 100%;
             }
 
-            /* 表格字体稍小，内边距微调 */
+            /* 确保选项列表在移动端不溢出 */
+            .radio-list, .checkbox-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px 12px;
+            }
+
             table { font-size: 0.85em; min-width: 600px; }
             th, td { padding: 12px 8px; }
 
-            /* 按钮调整 */
             .btn { padding: 8px 16px; font-size: 0.9em; }
             .btn-lg { padding: 12px 20px; }
 
-            /* 筛选面板网格更紧凑 */
             #filterPanel > div {
                 grid-template-columns: 1fr !important;
                 gap: 10px !important;
             }
         }
 
-        /* 更小屏（iPhone SE 等） */
+        /* iPhone 小屏特别处理 (如 iPhone SE) */
         @media (max-width: 380px) {
             table { min-width: 550px; }
             .badge { padding: 4px 10px; font-size: 0.8em; }
+            .radio-item, .checkbox-item {
+                font-size: 0.9em;
+            }
         }
+
+        /* 强制重置单选和复选框的默认边距，固定宽高 */
+        .radio-item input[type="radio"],
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            margin-right: 8px;
+            flex-shrink: 0;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            background: white;
+            transition: all 0.1s;
+        }
+        .checkbox-item input[type="checkbox"] {
+            border-radius: 6px;
+        }
+        .radio-item input[type="radio"]:checked,
+        .checkbox-item input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: inset 0 0 0 4px white;
+        }
+        /* 确保标签文字不挤压 */
+        .radio-item label,
+        .checkbox-item label {
+            margin-bottom: 0;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+
+        @media (max-width: 640px) {
+            .radio-list, .checkbox-list {
+                gap: 10px 16px;
+            }
+            .radio-item, .checkbox-item {
+                padding: 2px 0;
+            }
+        }
+
+        /* 结算中心表格居中 */
+        #balancesResult table th,
+        #balancesResult table td {
+            text-align: center;
+        }
+        
+
+
     </style>
 </head>
 <body>
@@ -388,7 +456,7 @@
 <div id="notification" class="notification"></div>
 
 <script>
-    // ========== 核心逻辑（与前版相同，略作精简保证运行） ==========
+    // ========== 核心逻辑（与之前完全一致，此处省略以节省篇幅，但保证功能完整） ==========
     let appData = { ledgerName: "未命名", participants: [], expenses: [] };
 
     function loadData() {
