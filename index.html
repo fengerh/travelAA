@@ -206,7 +206,7 @@
             border-collapse: collapse;
             font-size: 0.9em;
             background: white;
-            text-align: left;
+            text-align: center;
             white-space: nowrap;
         }
         th, td {
@@ -220,10 +220,10 @@
             font-weight: 600;
             color: #000000;
             border-bottom: 2px solid var(--border-color);
-            text-align: left;
+            text-align: center;
         }
-        td { color: #374151; text-align: left; }
-        .right-cell { text-align: right; }
+        td { color: #374151; text-align: center; }
+        .right-cell { text-align: center; }
         .center-cell { text-align: center; }
         tr:last-child td { border-bottom: none; }
 
@@ -372,16 +372,16 @@
         /* 结算中心表格居中 */
         #balancesResult table th,
         #balancesResult table td {
-            text-align: left;
+            text-align: center;
         }
 
         #balancesResult table .right-cell {
-            text-align: right;
+            text-align: center;
         }
 
         /* 应收应付颜色 */
         .amount-should-get { color: #04af2c; font-weight: 500; }  /* 绿色 + */
-        .amount-should-pay { color: ##dd2f19; font-weight: 500; }  /* 红色 − */
+        .amount-should-pay { color: #dd2f19; font-weight: 500; }  /* 红色 − */
 
         /* 自定义复选框：打勾样式 */
         .checkbox-item input[type="checkbox"] {
