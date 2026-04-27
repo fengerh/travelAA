@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>旅行记账本 v20260411.2122</title>
+    <title>旅行记账本 v20260427.2020</title>
     <style>
         /* ===== 基础配色 ===== */
         :root {
-            --primary-color: #2563eb;      /* 主蓝色，用于按钮、标题等 */
-            --success-color: #10b981;      /* 绿色，用于成功/记录按钮 */
-            --danger-color: #ef4444;       /* 红色，用于删除等警示操作 */
-            --light-bg: #f8fafc;
-            --border-color: #e2e8f0;
-            --main-bg: #f5f7fb;            /* 整体背景浅灰蓝 */
+            --primary-color: #60a5fa;      /* 低饱和度蓝色，用于按钮、标题等 */
+            --success-color: #60a5fa;      /* 低饱和度蓝色，用于成功/记录按钮 */
+            --danger-color: #60a5fa;       /* 低饱和度蓝色，用于删除等操作 */
+            --light-bg: #f9fafb;
+            --border-color: #e5e7eb;
+            --main-bg: #f9fafb;            /* 整体背景浅灰 */
             --card-bg: #ffffff;
-            --header-bg: #f1f5f9;          /* 标题栏浅灰 */
-            --header-color: #0f172a;       /* 标题文字深色 */
-            --text-secondary: #475569;
-            --table-header-bg: #f1f5f9;    /* 表头浅灰 */
+            --header-bg: #f3f4f6;          /* 标题栏浅灰 */
+            --header-color: #000000;       /* 标题文字黑色 */
+            --text-secondary: #374151;     /* 次要文字深灰色 */
+            --table-header-bg: #f3f4f6;    /* 表头浅灰 */
         }
 
         /* 模块卡片背景微调 */
-        .card-record-expense { background-color: #f0f9ff; }  /* 极浅蓝 */
-        .card-expenses-list   { background-color: #f8fafc; }  /* 灰白 */
-        .card-settlement-center { background-color: #fefce8; } /* 奶黄微调 */
+        .card-record-expense { background-color: #ffffff; }  /* 白色 */
+        .card-expenses-list   { background-color: #ffffff; }  /* 白色 */
+        .card-settlement-center { background-color: #ffffff; } /* 白色 */
 
 
         * {
@@ -43,30 +43,30 @@
 
         .card {
             background-color: var(--card-bg);
-            border-radius: 18px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            padding: 18px 16px;
-            margin-bottom: 18px;
-            border: 1px solid #f0eef4;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 16px 14px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
         }
 
         h1 {
             background-color: var(--header-bg);
-            color: var(--header-color);
-            font-size: 1.8em;
-            margin: -16px -12px 18px -12px;
-            padding: 18px 20px;
-            border-radius: 24px 24px 0 0;
+            color: #000000;
+            font-size: 1.6em;
+            margin: -16px -12px 16px -12px;
+            padding: 16px 20px;
+            border-radius: 12px 12px 0 0;
             font-weight: 600;
             letter-spacing: 0.3px;
-            border-bottom: 1px solid #e0d9eb;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         h2 {
-            color: var(--primary-color);
-            font-size: 1.4em;
-            margin: 0 0 14px 0;
-            font-weight: 500;
+            color: #000000;
+            font-size: 1.2em;
+            margin: 0 0 12px 0;
+            font-weight: 600;
         }
 
         .main-title {
@@ -84,9 +84,9 @@
 
         /* 提示横幅 */
         .hint-banner {
-            background-color: #dbeafe;
-            border-color: #bfdbfe;
-            color: #1e3a8a;
+            background-color: #ffffff;
+            border-color: #d1d5db;
+            color: #4b5563;
             padding: 12px 16px;
             text-align: center;
             font-size: 0.9em;
@@ -99,16 +99,16 @@
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 40px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 500;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: all 0.15s;
             white-space: nowrap;
         }
@@ -116,10 +116,10 @@
         /* 按钮悬浮效果 */
         .btn:hover {
             opacity: 0.9;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .btn-sm { padding: 6px 12px; font-size: 0.85em; }
-        .btn-lg { padding: 14px 24px; font-size: 1em; }
+        .btn-lg { padding: 10px 20px; font-size: 1em; }
         .btn-danger { background-color: var(--danger-color); }
         .btn-success { background-color: var(--success-color); }
 
@@ -134,10 +134,10 @@
         }
         input, select {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--border-color);
-            border-radius: 16px;
-            background-color: #fefdff;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #ffffff;
             font-size: 16px;
             transition: border 0.15s;
         }
@@ -154,7 +154,7 @@
         /* 输入框聚焦 */
         input:focus, select:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.15);
         }
 
         /* 桌面两列 */
@@ -195,7 +195,7 @@
         .table-container {
             overflow-x: auto;
             margin-top: 12px;
-            border-radius: 14px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: white;
             -webkit-overflow-scrolling: touch;
@@ -206,30 +206,30 @@
             border-collapse: collapse;
             font-size: 0.9em;
             background: white;
-            text-align: center;
+            text-align: left;
             white-space: nowrap;
         }
         th, td {
-            padding: 14px 10px;
-            border-bottom: 1px solid #eeeaf3;
+            padding: 12px 10px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         /* 表头文字颜色加深 */
         th {
             background-color: var(--table-header-bg);
             font-weight: 600;
-            color: #1e293b;
+            color: #000000;
             border-bottom: 2px solid var(--border-color);
-            text-align: center;
+            text-align: left;
         }
-        td { color: #333; text-align: center; }
-        .right-cell { text-align: center; }
+        td { color: #374151; text-align: left; }
+        .right-cell { text-align: right; }
         .center-cell { text-align: center; }
         tr:last-child td { border-bottom: none; }
 
         .badge {
-            background-color: #e4d9f0;
-            color: #3a2d4a;
+            background-color: #e5e7eb;
+            color: #4b5563;
             padding: 5px 12px;
             border-radius: 30px;
             font-size: 0.85em;
@@ -258,9 +258,9 @@
 
         .notification {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: #3e3450; color: #f1eaff; padding: 12px 24px;
-            border-radius: 60px; opacity: 0; transition: opacity 0.3s; z-index: 1000;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            background: var(--primary-color); color: #ffffff; padding: 12px 24px;
+            border-radius: 8px; opacity: 0; transition: opacity 0.3s; z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             font-size: 0.9em;
             white-space: nowrap;
         }
@@ -372,12 +372,16 @@
         /* 结算中心表格居中 */
         #balancesResult table th,
         #balancesResult table td {
-            text-align: center;
+            text-align: left;
+        }
+
+        #balancesResult table .right-cell {
+            text-align: right;
         }
 
         /* 应收应付颜色 */
-        .amount-should-get { color: #10b981; font-weight: 500; }  /* 绿色 + */
-        .amount-should-pay { color: #ef4444; font-weight: 500; }  /* 红色 − */
+        .amount-should-get { color: #6b7280; font-weight: 500; }  /* 灰色 + */
+        .amount-should-pay { color: #6b7280; font-weight: 500; }  /* 灰色 − */
 
         /* 自定义复选框：打勾样式 */
         .checkbox-item input[type="checkbox"] {
@@ -430,7 +434,7 @@
 </h1>
 
 <!-- 记录新费用 -->
-<div class="card card-record-expense" style="background-color: #faf7ff;">
+<div class="card card-record-expense" style="background-color: #ffffff;">
     <h2 id="expenseHeader" class="collapsible-header" onclick="toggleExpenseForm()">
         记录一笔
         <span style="font-size:0.8rem; color:var(--primary-color); font-weight:normal;">(自动补全时分)</span>
@@ -458,13 +462,13 @@
 </div>
 
 <!-- 费用明细 -->
-<div class="card card-expenses-list" style="background-color: #f5f7fb;">
+<div class="card card-expenses-list" style="background-color: #f0f0f1;">
     <div class="flex-between">
         <h2 id="expensesHeader" class="collapsible-header" onclick="toggleExpensesPanel()">📋 费用明细</h2>
         <button class="btn btn-sm" onclick="event.stopPropagation(); toggleFilterPanel()">🔍 筛选</button>
     </div>
     <div id="expensesContentWrapper">
-        <div id="filterPanel" class="hidden" style="margin: 12px 0 16px; padding: 14px; background: #f2edf7; border-radius: 18px;">
+        <div id="filterPanel" class="hidden" style="margin: 12px 0 16px; padding: 14px; background: #f3f4f6; border-radius: 8px; border: 1px solid #e5e7eb;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 12px;">
                 <div><label>开始</label><input type="date" id="filterDateFrom" oninput="applyFilters()"></div>
                 <div><label>结束</label><input type="date" id="filterDateTo" oninput="applyFilters()"></div>
@@ -479,7 +483,7 @@
 </div>
 
 <!-- 结算中心 -->
-<div class="card card-settlement-center" style="background-color: #fefbf5;">
+<div class="card card-settlement-center" style="background-color: #ffffff;">
     <h2 id="settlementHeader" class="collapsible-header" onclick="toggleSettlementPanel()">💰 结算中心</h2>
     <div id="settlementContentWrapper">
         <button class="btn" onclick="calculateBalances()" style="margin: 10px 0 16px;">🧮 计算并查看结算单</button>
@@ -499,9 +503,9 @@
         <div class="form-group">
             <label>数据管理</label>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-                <label for="importFile" class="import-label btn-success">📤 导入CSV</label>
+                <label for="importFile" class="import-label" style="background-color: var(--success-color);">📤 导入CSV</label>
                 <input type="file" id="importFile" accept=".csv" onchange="handleFileImport(event)" style="display:none;">
-                <button class="btn" onclick="exportToCSV()" style="background-color: #6b5b7e;">📥 导出Excel</button>
+                <button class="btn" onclick="exportToCSV()" style="background-color: var(--primary-color);">📥 导出Excel</button>
                 <button class="btn btn-danger" onclick="resetAppDataWithExport()">⚠️ 重置</button>
             </div>
         </div>
