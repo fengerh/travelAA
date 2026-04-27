@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>旅行记账本 v20260427.2110</title>
+    <title>旅行记账本 v20260427.2120</title>
     <style>
         /* ===== 基础配色 ===== */
         :root {
@@ -434,7 +434,7 @@
 </h1>
 
 <!-- 记录新费用 -->
-<div class="card card-record-expense" style="background-color: #ffffff;">
+<div class="card card-record-expense" style="background-color: #f4f6fa;">
     <h2 id="expenseHeader" class="collapsible-header" onclick="toggleExpenseForm()">
         记录一笔
         <span style="font-size:0.8rem; color:var(--header-color); font-weight:normal;">(自动补全时分)</span>
@@ -483,7 +483,7 @@
 </div>
 
 <!-- 结算中心 -->
-<div class="card card-settlement-center" style="background-color: #ffffff;">
+<div class="card card-settlement-center" style="background-color: #f4f6fa;">
     <h2 id="settlementHeader" class="collapsible-header" onclick="toggleSettlementPanel()">💰 结算中心</h2>
     <div id="settlementContentWrapper">
         <button class="btn" onclick="calculateBalances()" style="margin: 10px 0 16px;">🧮 计算并查看结算单</button>
@@ -492,7 +492,7 @@
 </div>
 
 <!-- 设置中心 -->
-<div class="card">
+<div class="card" style="background-color: #f0f0f1;">
     <h2 id="settingsHeader" class="collapsible-header collapsed" onclick="toggleSettingsPanel()">⚙️ 设置中心</h2>
     <div id="settingsPanelContent" class="hidden">
         <div class="form-group"><label>添加新成员</label><div style="display: flex; gap: 10px;"><input type="text" id="newParticipant" placeholder="输入姓名" style="flex:1;"><button class="btn" onclick="addParticipant()">添加</button></div></div>
